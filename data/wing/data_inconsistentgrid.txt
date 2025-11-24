@@ -1,0 +1,52 @@
+# computational cost
+1. HF: 1 (5.4 CPU sec)
+2. LF: 0.1111 (0.6 CPU sec)
+
+# number of spatial dimension
+1. HF: 66663 elements
+2. LF: 4351 elements
+
+# how to get POD coefficients
+1. apply SVD to highfi data -> get POD basis (d by r), POD coeff (r by n)
+2. apply SVD to lowfi data -> get POD coeff (r by m)
+3. do manifold alignment using highfi and lowfi POD coeff and get highfi-aligned lowfi POD coeff (r by m)
+4. train krig model using highfi POD coeff (r by n) and lowfi POD coeff (r by m)
+5. predict POD coeff for new input
+
+* for budget allocation, what if n is smaller than r?
+1. for budget 10, r=9 --> n=7, m = 21
+
+''' data: crm_coarse-grid_4DV_N1000_slim.h5
+We will use von Mises stress data - GRID/CELL_DATA/vonMisesStress_2p5g_psi (1000, 5062) and 
+displacement data - GRID/GRID/POINT_DATA/disp_2p5g_inch (1000, 2160, 3)
+
+The h5 file is containing:
+
+name: GRID/CELL_DATA/vonMisesStress_2p5g_psi
+size: (1000, 79167)
+
+name: GRID/Cell_Types
+size: (79167,)
+
+name: GRID/Cells
+size: (316668,)
+
+name: GRID/POINT_DATA/disp_2p5g_inch
+size: (1000, 37989, 3)
+
+name: GRID/Points
+size: (1000, 37989, 3)
+
+name: STATE/DV_Values
+size: (1000, 4)'''
+
+## Coordinates data - GRID/Points (1000, 2160, 3) will be used to visualize the stress and displacement data
+
+#### input data - STATE/DV_Values (1000, 4)
+#### The dataset has 4 input parmaeters: sweep, dihedral, wing tip twist, wing span
+#### 1000 samples are drew from the design bounds of Table 3 using the Latin Hypercube Sampling
+
+
+#### LF resolution: 5062 elements
+#### nodes: 2160 (guessed from GRID/Points)
+
