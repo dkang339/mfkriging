@@ -12,7 +12,7 @@ current_dir = Path(__file__).parent # get current directory
 root_dir = current_dir.parent.resolve() # get src directory
 sys.path.append(str(root_dir))
 sys.path.append(str(root_dir / '../src'))
-data_dir = '../../data/ishi'
+data_dir = '../../../data/ishi'
 os.makedirs(data_dir, exist_ok=True)
 
 a = 5
