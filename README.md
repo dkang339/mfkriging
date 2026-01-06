@@ -1,5 +1,5 @@
 # Multifidelity Kriging with budget allocation
-Hierarchical Kriging provides robust predictions by using both high and low fidelity data, but it does not specify how many samples of each fidelity should be used. This project addresses the limitation by proposing a multifidelity Monte Carlo (MFMC) budget allocation strategy for Hierarchical Kriging.
+Hierarchical Kriging provides robust predictions using both high and low fidelity data, but it does not specify how many samples of each fidelity should be used. This project addresses the limitation by proposing a multifidelity Monte Carlo (MFMC) budget allocation strategy for Hierarchical Kriging.
 
 ## To start
 Run demo notebook `code/examples/demo.ipynb` to see performance of the proposed method. This example demonstrates Hierarchical Kriging with MFMC allocation on a 1D analytical function, compared to single fidelity Kriging.
