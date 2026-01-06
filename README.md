@@ -16,7 +16,7 @@ Figures below illustrate the predicted outputs for each method.
 ## More results
 - See `code/examples` for further comparisons between MFMC allocation and naive allocation strategies.
 
-Naive allocation assigns high- and low-fidelity samples using a fixed ratio
+Naive allocation assigns high and low fidelity samples using a fixed ratio
 
 $$
 \tau =
@@ -35,7 +35,7 @@ $$
 
 ### Prerequisites
 1. Download data for the wing example.
-* Download the wing structural stress data from [here](https://link.springer.com/article/10.1007/s00158-022-03274-1#Sec23) (3.9 GB) or by `wget https://static-content.springer.com/esm/art%3A10.1007%2Fs00158-022-03274-1/MediaObjects/158_2022_3274_MOESM1_ESM.zip`. Place the follwing data into `mfhikrig/data/wing`.
+* Download the wing structural stress data from [here](https://link.springer.com/article/10.1007/s00158-022-03274-1#Sec23) (3.9 GB) or by `wget https://static-content.springer.com/esm/art%3A10.1007%2Fs00158-022-03274-1/MediaObjects/158_2022_3274_MOESM1_ESM.zip`. Place the follwing data into `data/wing`.
   1. `/data/crm_baseline_4DV_N1000_slim.h5`
   2. `/data/crm_coarse-grid_4DV_N1000_slim.h5`
   3. `/data/crm_coarse-ribs_4DV_N1000_slim.h5`
