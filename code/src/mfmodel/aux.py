@@ -29,10 +29,15 @@ class KrigingAux:
         # get mean and std of data
         x_mean = np.mean(x, axis=0)
         x_std = np.std(x, axis=0)
-        
+
+        # ensure scalar stats for 1D input
+        if x.shape[1] == 1:
+            x_mean = x_mean.item()
+            x_std = x_std.item()
+
         # normalize data
         x_norm = (x - x_mean) / x_std
-        
+
         return x_norm, x_mean, x_std
     
 

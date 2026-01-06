@@ -71,7 +71,7 @@ class DiscKriging(KrigingAux):
 
         loglikeli = 0.5 * (self.n* np.log(var) +  elem2)
 
-        return float(loglikeli)
+        return loglikeli.item()
     
 
     def train(self):

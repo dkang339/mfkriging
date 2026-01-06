@@ -48,7 +48,7 @@ class Kriging(KrigingAux):
 
         loglikeli = 0.5 * (n* np.log(var) +  elem2)
 
-        return float(loglikeli)
+        return loglikeli.item()
 
 
     def train(self, x, y):

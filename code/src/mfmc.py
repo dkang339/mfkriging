@@ -44,8 +44,8 @@ class MFMC:
         '''
         # get standard deviation of each fidelity
         sigma = np.zeros(self.nf) # (nf,)
-        sigma[0] = np.std(self.h_out, axis=1, ddof=1) # highfi (scalar)
-        sigma[1] = np.std(self.l_out, axis=1, ddof=1) # lowfi (scalar)
+        sigma[0] = np.std(self.h_out, ddof=1) # highfi (scalar)
+        sigma[1] = np.std(self.l_out, ddof=1) # lowfi (scalar)
 
         # get correlation coefficient between highfi and lowfis
         rho = np.zeros(self.nf+1) # (nf+1,)
@@ -70,7 +70,7 @@ class MFMC:
         temp = (rho[:-1]**2 - rho[1:]**2)
         const = np.sqrt(self.w[0]*temp/(self.w*(1-rho[1]**2))) # (nf,)
         m[0] = p/(self.w.transpose() @ const)
-        m[1] = m[0]*const[1:]
+        m[1] = m[0]*const[1]
         m = np.floor(m)
         m = m.astype(int)
 
