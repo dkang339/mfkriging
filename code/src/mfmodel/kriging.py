@@ -77,14 +77,14 @@ class Kriging(KrigingAux):
 
         # ---------------------------------------------
         #           optimize hyperparameters
-        # ---------------------------------------------        
-        # bound constraints
-        bounds = self.get_bounds(x, d)
+        # ---------------------------------------------
+        # bound constraints (data-dependent)
+        bounds = self.get_bounds(x, d, y)
         lb = bounds[:,0]
         ub = bounds[:,1]
 
-        # initial hyperparameters
-        hyparas0 = self.init_hyparas(bounds, d)
+        # initial hyperparameters (data-dependent)
+        hyparas0 = self.init_hyparas(bounds, d, y)
 
         best_loglikeli = np.inf
         for _ in range(self.n_restart): # repeat optimization n_restart times

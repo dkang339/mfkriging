@@ -79,13 +79,13 @@ class DiscKriging(KrigingAux):
         # ---------------------------------------------
         #           optimize hyperparameters
         # ---------------------------------------------
-        # bound constraints
-        bounds = self.get_bounds(self.x_high, self.d)
+        # bound constraints (data-dependent)
+        bounds = self.get_bounds(self.x_high, self.d, self.y_high)
         lb = bounds[:,0]
         ub = bounds[:,1]
 
-        # initial hyperparameters
-        hyparas0 = self.init_hyparas(bounds, self.d)
+        # initial hyperparameters (data-dependent)
+        hyparas0 = self.init_hyparas(bounds, self.d, self.y_high)
 
         best_loglikeli = np.inf
         for _ in range(self.n_restart): # repeat optimization n_restart times

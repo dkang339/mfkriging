@@ -41,27 +41,38 @@ class KrigingAux:
         return x_norm, x_mean, x_std
     
 
-    def init_hyparas(self, bounds, d):
+    def init_hyparas(self, bounds, d, y=None):
         '''
+        Initialize hyperparameters.
+        Adapted from pyToolBox's hyperparameter initialization
+        (downloadable from https://link.springer.com/article/10.1007/s00158-022-03274-1#Sec23).
+
         inputs
             - bounds: (lower bound, upper bound) in log space for hyperparameters
             - d: input dimension
+            - y: training output data (n, 1) for data-dependent noise initialization
         '''
 
         bounds = np.asarray(bounds)
         hyparas0 = np.mean(bounds, axis=1) # (d+1,)
-        
-        return hyparas0        
 
-    def get_bounds(self, x, d):
+        # data-dependent noise initialization (matching MAROM-MF-Structure)
+        if y is not None:
+            tiny = np.finfo(float).tiny
+            hyparas0[d] = np.log(0.1 * np.var(y) + tiny)
+
+        return hyparas0
+
+    def get_bounds(self, x, d, y=None):
         '''
         Set bound constraints for hyperparameters.
-        Adapted from pyToolBox's hyperparameter initialization 
+        Adapted from pyToolBox's hyperparameter initialization
         (downloadable from https://link.springer.com/article/10.1007/s00158-022-03274-1#Sec23).
-        
+
         inputs
             - x: training data (n, d)
             - d: input dimension
+            - y: training output data (n, 1) for data-dependent noise bounds
         outputs
             - bounds: log-scaled (lower bound, upper bound)
         '''
@@ -77,9 +88,16 @@ class KrigingAux:
         ub_lscale = np.log(10 * rmax)
         length_bounds = np.vstack([ [lb_lscale, ub_lscale] for _ in range(d) ])
 
-        # set noise bounds
-        reg_lb = np.log(1e-5)
-        reg_ub = np.log(1e-1)
+        # set noise bounds (data-dependent, matching MAROM-MF-Structure)
+        npts = x.shape[0]
+        cond = npts * np.finfo(float).eps
+        if y is not None:
+            y = np.asarray(y)
+            reg_lb = np.log(cond)
+            reg_ub = np.log(np.ptp(y)**2 + cond)
+        else:
+            reg_lb = np.log(1e-5)
+            reg_ub = np.log(1e-1)
         reg_bounds = np.array([[reg_lb, reg_ub]])
 
         # combine bounds
