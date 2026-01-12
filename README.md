@@ -5,7 +5,7 @@ Hierarchical Kriging provides robust predictions using both high and low fidelit
 Run demo notebook `code/examples/demo.ipynb` to see performance of the proposed method. This example demonstrates Hierarchical Kriging with MFMC allocation on a 1D analytical function, compared to single fidelity Kriging.
 
 ## Key results
-- Single-fidelity Kriging fails to capture the trend for $x > 0.8$, where no high fidelity samples are available.
+- Single-fidelity Kriging fails to capture the trend for $x > 0.9$, where no high fidelity samples are available.
 - Hierarchical Kriging with MFMC allocation accurately predicts overall trend even in regions that lack high fidelity samples by leveraging low fidelity samples.
 
 Figures below illustrate the predicted outputs for each method.
